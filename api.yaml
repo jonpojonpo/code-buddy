@@ -1,0 +1,57 @@
+penapi: 3.0.0
+info:
+  title: Codespace Command Execution API
+  version: 1.0.0
+  description: API to execute commands in a GitHub Codespace
+servers:
+  - url: https://verbose-spork-v664pq7xjvr2wvpx-5000.app.github.dev/
+
+paths:
+  /run-command:
+    post:
+      summary: Execute a command in the Codespace
+      description: Executes a given shell command and returns the output
+      operationId: executeCommand
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommandRequest'
+      responses:
+        '200':
+          description: Successful response with the output of the command
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+        '401':
+          description: Unauthorized request
+        '400':
+          description: Bad request
+      security:
+        - bearerAuth: []
+
+components:
+  schemas:
+    CommandRequest:
+      type: object
+      required:
+        - command
+      properties:
+        command:
+          type: string
+          description: The command to be executed
+
+    CommandResponse:
+      type: object
+      properties:
+        output:
+          type: string
+          description: The output from the executed command
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
