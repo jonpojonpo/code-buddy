@@ -10,12 +10,13 @@ def verify_token(token):
 
 @app.route('/run-command', methods=['POST'])
 def run_command():
-    print(request.headers.get('Authorization'))
+    #print(request.headers.get('Authorization'))
     #if not verify_token(request.headers.get('Authorization')):
     #    return jsonify({'error': 'Unauthorized'}), 401
 
     data = request.json
     command = data.get('command')
+    print(command)
     
     # Security check: Validate and sanitize the command here
 
