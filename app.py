@@ -6,13 +6,17 @@ app = Flask(__name__)
 BEARER_TOKEN = os.environ.get('BEARER_TOKEN')
 
 def verify_token(token):
+    parts = token.split()
+    if len(parts) == 2 and parts[0] == 'Bearer':
+            token = parts[1]
+    print( token + "==" + BEARER_TOKEN + "?")
     return token == BEARER_TOKEN
 
 @app.route('/run-command', methods=['POST'])
 def run_command():
     #print(request.headers.get('Authorization'))
-    #if not verify_token(request.headers.get('Authorization')):
-    #    return jsonify({'error': 'Unauthorized'}), 401
+    if not verify_token(request.headers.get('Authorization')):
+        return jsonify({'error': 'Unauthorized'}), 401
 
     data = request.json
     command = data.get('command')
