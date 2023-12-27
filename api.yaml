@@ -33,6 +33,45 @@ paths:
       security:
         - bearerAuth: []
 
+  /apply-patch:
+    post:
+      summary: Apply a Git patch
+      description: Applies a Git patch to a specified file.
+      operationId: applyGitPatch
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file_path:
+                  type: string
+                  description: Path to the file to be patched.
+                patch_content:
+                  type: string
+                  description: The content of the Git patch to apply.
+      responses:
+        '200':
+          description: Patch applied successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message.
+        '400':
+          description: Bad request, missing file_path or patch_content.
+        '401':
+          description: Unauthorized request.
+        '500':
+          description: Internal server error, patch application failed.
+
+
+
 components:
   schemas:
     CommandRequest:
