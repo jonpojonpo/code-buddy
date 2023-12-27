@@ -23,3 +23,5 @@ Description:
 7. **Test the Configuration:** Finally, use the preview tab in the GPT configuration to ensure everything is working correctly.
 
 By following these steps, you can successfully set up and operate your own CAN DO system.
+
+Note: The workflow discussed can be completed using the Code Anything Now! Definitely Obey (CAN DO) system.
